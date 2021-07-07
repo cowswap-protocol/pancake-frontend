@@ -1,6 +1,6 @@
 import React, { lazy } from 'react'
 import { Router, Redirect, Route, Switch } from 'react-router-dom'
-import { ResetCSS } from '@pancakeswap/uikit'
+import { ResetCSS } from 'cowswap-uikit'
 import BigNumber from 'bignumber.js'
 import useEagerConnect from 'hooks/useEagerConnect'
 import { usePollCoreFarmData, useFetchProfile, usePollBlockNumber } from 'state/hooks'
@@ -25,7 +25,7 @@ const Teams = lazy(() => import('./views/Teams'))
 const Team = lazy(() => import('./views/Teams/Team'))
 const Profile = lazy(() => import('./views/Profile'))
 const TradingCompetition = lazy(() => import('./views/TradingCompetition'))
-const Predictions = lazy(() => import('./views/Predictions'))
+// const Predictions = lazy(() => import('./views/Predictions'))
 
 // This config is required for number formatting
 BigNumber.config({
@@ -76,9 +76,7 @@ const App: React.FC = () => {
             <Route path="/competition">
               <TradingCompetition />
             </Route>
-            <Route path="/prediction">
-              <Predictions />
-            </Route>
+            
             {/* Redirect */}
             <Route path="/staking">
               <Redirect to="/pools" />

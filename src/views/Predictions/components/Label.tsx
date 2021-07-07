@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { useCountUp } from 'react-countup'
 import styled from 'styled-components'
-import { BnbUsdtPairTokenIcon, Box, Card, PocketWatchIcon, Text } from '@pancakeswap/uikit'
+import { Box, Card, PocketWatchIcon, Text } from 'cowswap-uikit'
 import { useGetLastOraclePrice } from 'state/hooks'
 import { useTranslation } from 'contexts/Localization'
 import { formatRoundTime } from '../helpers'
@@ -87,7 +87,7 @@ export const PricePairLabel: React.FC = () => {
   return (
     <Box pl="24px" position="relative" display="inline-block">
       <Token left={0}>
-        <BnbUsdtPairTokenIcon />
+
       </Token>
       <Label dir="left">
         <Title bold textTransform="uppercase">
