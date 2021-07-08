@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-import { Card, CardBody, Button, Link, Text } from '@pancakeswap/uikit'
+import { Card, CardBody, Button, Link, Text } from 'cowswap-uikit'
 import { useTranslation } from 'contexts/Localization'
 
 const StyledLotteryCard = styled(Card)`

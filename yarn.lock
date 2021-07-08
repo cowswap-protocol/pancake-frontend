@@ -2079,19 +2079,6 @@
     eslint-plugin-react "^7.21.5"
     eslint-plugin-react-hooks "^4.0.0"
 
-"@pancakeswap/uikit@^0.39.3":
-  version "0.39.3"
-  resolved "https://registry.yarnpkg.com/@pancakeswap/uikit/-/uikit-0.39.3.tgz#65159a2898c4939d884fcdadf142db5e356b9659"
-  integrity sha512-UEAM4rt28I9hGVEOEbmsE1SfEgA/jjy2u0SCjp4Yup1luWDOWASgZH8EOjqCH61qa2s4hdLTAdh8wT5wRnm5OA==
-  dependencies:
-    "@popperjs/core" "^2.9.2"
-    "@types/lodash" "^4.14.168"
-    "@types/styled-system" "^5.1.10"
-    lodash "^4.17.20"
-    react-popper "^2.2.5"
-    react-transition-group "^4.4.1"
-    styled-system "^5.1.5"
-
 "@pedrouid/iso-crypto@^1.0.0":
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/@pedrouid/iso-crypto/-/iso-crypto-1.1.0.tgz#3fb4050ea99f2f8ee41ba8661193c0989c815c95"
@@ -5003,6 +4990,17 @@ countup.js@^1.9.3:
   version "1.9.3"
   resolved "https://registry.yarnpkg.com/countup.js/-/countup.js-1.9.3.tgz#ce3e50cd7160441e478f07da31895edcc0f1c9dd"
   integrity sha1-zj5QzXFgRB5HjwfaMYle3MDxyd0=
+
+"cowswap-uikit@file:.yalc/cowswap-uikit":
+  version "0.39.3"
+  dependencies:
+    "@popperjs/core" "^2.9.2"
+    "@types/lodash" "^4.14.168"
+    "@types/styled-system" "^5.1.10"
+    lodash "^4.17.20"
+    react-popper "^2.2.5"
+    react-transition-group "^4.4.1"
+    styled-system "^5.1.5"
 
 create-ecdh@^4.0.0:
   version "4.0.4"

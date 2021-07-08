@@ -2,7 +2,7 @@ import React, { useEffect, useCallback, useState, useMemo, useRef } from 'react'
 import { Route, useRouteMatch, useLocation } from 'react-router-dom'
 import BigNumber from 'bignumber.js'
 import { useWeb3React } from '@web3-react/core'
-import { Image, Heading, RowType, Toggle, Text } from '@pancakeswap/uikit'
+import { Image, Heading, RowType, Toggle, Text } from 'cowswap-uikit'
 import { ChainId } from '@pancakeswap-libs/sdk'
 import styled from 'styled-components'
 import FlexLayout from 'components/layout/Flex'
@@ -399,7 +399,7 @@ const Farms: React.FC = () => {
         </ControlContainer>
         {renderContent()}
         <div ref={loadMoreRef} />
-        <StyledImage src="/images/3dpan.png" alt="Pancake illustration" width={120} height={103} />
+        <StyledImage src="/images/cowb.svg" alt="Cow Baby" width={120} height={120} />
       </Page>
     </>
   )
