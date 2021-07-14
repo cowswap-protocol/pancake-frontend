@@ -36,26 +36,22 @@ const config: (t: ContextApi['t']) => MenuEntry[] = (t) => [
     icon: 'FarmIcon',
     href: '/farms',
   },
-  {
-    label: t('Pools'),
-    icon: 'PoolIcon',
-    href: '/pools',
-  },
+
   {
     label: 'POT',
     icon: 'FarmIcon',
-    href: '/pools',
+    href: '/pots',
   },
   // {
   //   label: t('Prediction (BETA)'),
   //   icon: 'PredictionsIcon',
   //   href: '/prediction',
   // },
-  // {
-  //   label: t('Lottery'),
-  //   icon: 'TicketIcon',
-  //   href: '/lottery',
-  // },
+  {
+    label: t('Cowboy'),
+    icon: 'TicketIcon',
+    href: '/cowboy',
+  },
   // {
   //   label: t('Collectibles'),
   //   icon: 'NftIcon',

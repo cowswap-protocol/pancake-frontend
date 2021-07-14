@@ -54,7 +54,11 @@ import predictionsAbi from 'config/abi/predictions.json'
 import chainlinkOracleAbi from 'config/abi/chainlinkOracle.json'
 import MultiCallAbi from 'config/abi/Multicall.json'
 import { DEFAULT_GAS_PRICE } from 'config'
+import potABI from 'config/abi/pot.json'
+import { POT_ADDRESS } from 'config/constants/pots'
+
 import { getSettings, getGasPriceInWei } from './settings'
+
 
 export const getDefaultGasPrice = () => {
   const chainId = parseInt(process.env.REACT_APP_CHAIN_ID, 10)
@@ -147,4 +151,8 @@ export const getChainlinkOracleContract = (web3?: Web3) => {
 }
 export const getMulticallContract = (web3?: Web3) => {
   return getContract(MultiCallAbi, getMulticallAddress(), web3)
+}
+
+export const getPotContract = (web3?: Web3) => {
+  return getContract(potABI, getAddress(POT_ADDRESS), web3)
 }

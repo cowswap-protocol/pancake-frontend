@@ -1,7 +1,7 @@
 import { ThunkAction } from 'redux-thunk'
 import { AnyAction } from '@reduxjs/toolkit'
 import BigNumber from 'bignumber.js'
-import { CampaignType, FarmConfig, Nft, PoolConfig, Team } from 'config/constants/types'
+import { CampaignType, FarmConfig, Nft, PoolConfig, Team, PotConfig } from 'config/constants/types'
 
 export type AppThunk<ReturnType = void> = ThunkAction<ReturnType, State, unknown, AnyAction>
 
@@ -49,6 +49,19 @@ export interface Pool extends PoolConfig {
     pendingReward: BigNumber
   }
 }
+
+export interface Pot extends PotConfig {
+  apr?: number
+  stakingTokenPrice?: number
+  earningTokenPrice?: number
+  todayTotalStaked?: string
+  userData?: {
+    stakedBalance: string
+    pendingRewards: string
+    unclaimRewards: string
+  }
+}
+
 
 export interface Profile {
   userId: number
@@ -256,6 +269,12 @@ export interface PredictionsState {
   bets: BetData
 }
 
+
+export interface PotsState {
+  data: Pot[]
+  userDataLoaded: boolean
+}
+
 // Global state
 
 export interface State {
@@ -267,4 +286,8 @@ export interface State {
   profile: ProfileState
   teams: TeamsState
   collectibles: CollectiblesState
+  pots: PotsState
 }
+
+
+

@@ -1641,6 +1641,37 @@ const tokens = {
     decimals: 18,
     projectLink: 'https://decentral.games/',
   },
+
+  lowb: {
+    symbol: 'lowb',
+    address: {
+      56: '0x843D4a358471547f51534e3e51fae91cb4Dc3F28',
+      97: '',
+    },
+    decimals: 18,
+    projectLink: 'https://loserswap.com/',
+  },
+
+  cowb: {
+    symbol: 'COWB',
+    address: {
+      56: '0xf6dB8F1b6e551Ca3099E4BcB9ce97E69ed3Aa2E8',
+      97: '0xf6dB8F1b6e551Ca3099E4BcB9ce97E69ed3Aa2E8',
+    },
+    decimals: 18,
+    projectLink: 'https://cowswap.org/',
+  },
+
+  mockusdt: {
+    symbol: 'USDT',
+    address: {
+      56: '0x55d398326f99059fF775485246999027B3197955',
+      97: '0x4abF05933ba652b70e1E1Eb85a01BB2a380b00E9',
+    },
+    decimals: 18,
+    projectLink: 'https://tether.to/',
+  },
+
 }
 
 export default tokens

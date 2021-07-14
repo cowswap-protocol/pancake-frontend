@@ -10,6 +10,11 @@ export {
   updateUserPendingReward,
   updateUserStakedBalance,
 } from './pools'
+
+export {
+	fetchPotPublicDataAsync,
+	fetchPotUserDataAsync,
+} from './pots'
 export { profileFetchStart, profileFetchSucceeded, profileFetchFailed } from './profile'
 export { fetchStart, teamFetchSucceeded, fetchFailed, teamsFetchSucceeded } from './teams'
 export { setBlock } from './block'

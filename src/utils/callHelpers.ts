@@ -128,8 +128,26 @@ export const soushHarvestBnb = async (sousChefContract, account) => {
     })
 }
 
+export const claim = async (potContract, account, token) => {
+  const transaction = potContract.methods.claim(account, token)
+  const gasLimit = transaction.estimateGas({ value: 0, from: account, to: potContract.options.address })
+  return transaction.send({ from: account, gas: Math.round(gasLimit * 1.1), value: BIG_ZERO })
+    .on('transactionHash', (tx) => {
+      return tx.transactionHash
+    })
+}
+
+export const collect = async (potContract, account, token) => {
+  const transaction = potContract.methods.collect(account, token)
+  const gasLimit = transaction.estimateGas({ value: 0, from: account, to: potContract.options.address })
+  return transaction.send({ from: account, gas: Math.round(gasLimit * 1.1), value: BIG_ZERO })
+    .on('transactionHash', (tx) => {
+      return tx.transactionHash
+    })
+}
+
 const chainId = parseInt(process.env.REACT_APP_CHAIN_ID, 10)
-const cakeBnbPid = 251
+const cakeBnbPid = 0
 const cakeBnbFarm = farms.find((farm) => farm.pid === cakeBnbPid)
 
 const CAKE_TOKEN = new Token(chainId, getCakeAddress(), 18)

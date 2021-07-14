@@ -6,7 +6,7 @@ import { useAppDispatch } from 'state'
 import { orderBy } from 'lodash'
 import { Team } from 'config/constants/types'
 import Nfts from 'config/constants/nfts'
-import { farmsConfig } from 'config/constants'
+import { farmsConfig, potsConfig } from 'config/constants'
 import web3NoAccount from 'utils/web3'
 import { getBalanceAmount } from 'utils/formatBalance'
 import { BIG_ZERO } from 'utils/bigNumber'
@@ -20,8 +20,10 @@ import {
   fetchCakeVaultUserData,
   fetchCakeVaultFees,
   setBlock,
+  fetchPotPublicDataAsync,
+  fetchPotUserDataAsync,
 } from './actions'
-import { State, Farm, Pool, ProfileState, TeamsState, AchievementState, FarmsState } from './types'
+import { State, Farm, Pool, ProfileState, TeamsState, AchievementState, FarmsState, PotsState } from './types'
 import { fetchProfile } from './profile'
 import { fetchTeam, fetchTeams } from './teams'
 import { fetchAchievements } from './achievements'
@@ -322,12 +324,12 @@ export const useAchievements = () => {
 }
 
 export const usePriceBnbBusd = (): BigNumber => {
-  const bnbBusdFarm = useFarmFromPid(252)
+  const bnbBusdFarm = useFarmFromPid(0)
   return new BigNumber(bnbBusdFarm.quoteToken.busdPrice)
 }
 
 export const usePriceCakeBusd = (): BigNumber => {
-  const cakeBnbFarm = useFarmFromPid(251)
+  const cakeBnbFarm = useFarmFromPid(0)
   return new BigNumber(cakeBnbFarm.token.busdPrice)
 }
 
@@ -467,3 +469,37 @@ export const useGetCollectibles = () => {
     nftsInWallet: Nfts.filter((nft) => identifiers.includes(nft.identifier)),
   }
 }
+
+// Pots
+// export const usePots = (): PotsState => {
+//   const pots = useSelector((state: State) => state.pots)
+//   return pots
+// }
+
+export const usePots = (account): PotsState => {
+  const { fastRefresh } = useRefresh()
+  const dispatch = useAppDispatch()
+  useEffect(() => {
+    if (account) {
+      const ids = potsConfig.map((pot) => pot.sousId)
+      dispatch(fetchPotUserDataAsync({account, ids}))
+    }
+  }, [account, dispatch, fastRefresh])
+
+  const pots = useSelector((state: State) => state.pots)
+  return pots
+}
+
+
+export const usePollPotsData = () => {
+  const dispatch = useAppDispatch()
+  const { slowRefresh } = useRefresh()
+
+  useEffect(() => {
+    const ids = potsConfig.map((pot) => pot.sousId)
+
+    dispatch(fetchPotPublicDataAsync({ ids }))
+
+  }, [dispatch, slowRefresh])
+}
+

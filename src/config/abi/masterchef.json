@@ -2,28 +2,23 @@
   {
     "inputs": [
       {
-        "internalType": "contract CakeToken",
-        "name": "_cake",
-        "type": "address"
-      },
-      {
-        "internalType": "contract SyrupBar",
-        "name": "_syrup",
-        "type": "address"
-      },
-      {
         "internalType": "address",
-        "name": "_devaddr",
+        "name": "_treasury",
         "type": "address"
       },
       {
         "internalType": "uint256",
-        "name": "_cakePerBlock",
+        "name": "_rewardsPerBlock",
         "type": "uint256"
       },
       {
         "internalType": "uint256",
         "name": "_startBlock",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_bonusEndBlock",
         "type": "uint256"
       }
     ],
@@ -145,7 +140,7 @@
         "type": "uint256"
       },
       {
-        "internalType": "contract IBEP20",
+        "internalType": "contract IERC20",
         "name": "_lpToken",
         "type": "address"
       },
@@ -162,12 +157,12 @@
   },
   {
     "inputs": [],
-    "name": "cake",
+    "name": "bonusEndBlock",
     "outputs": [
       {
-        "internalType": "contract CakeToken",
+        "internalType": "uint256",
         "name": "",
-        "type": "address"
+        "type": "uint256"
       }
     ],
     "stateMutability": "view",
@@ -175,12 +170,12 @@
   },
   {
     "inputs": [],
-    "name": "cakePerBlock",
+    "name": "cowb",
     "outputs": [
       {
-        "internalType": "uint256",
+        "internalType": "contract IERC20",
         "name": "",
-        "type": "uint256"
+        "type": "address"
       }
     ],
     "stateMutability": "view",
@@ -207,51 +202,12 @@
   {
     "inputs": [
       {
-        "internalType": "address",
-        "name": "_devaddr",
-        "type": "address"
-      }
-    ],
-    "name": "dev",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [],
-    "name": "devaddr",
-    "outputs": [
-      {
-        "internalType": "address",
-        "name": "",
-        "type": "address"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
         "internalType": "uint256",
         "name": "_pid",
         "type": "uint256"
       }
     ],
     "name": "emergencyWithdraw",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "uint256",
-        "name": "_amount",
-        "type": "uint256"
-      }
-    ],
-    "name": "enterStaking",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
@@ -281,19 +237,6 @@
     "type": "function"
   },
   {
-    "inputs": [
-      {
-        "internalType": "uint256",
-        "name": "_amount",
-        "type": "uint256"
-      }
-    ],
-    "name": "leaveStaking",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
     "inputs": [],
     "name": "massUpdatePools",
     "outputs": [],
@@ -318,7 +261,7 @@
     "name": "migrator",
     "outputs": [
       {
-        "internalType": "contract IMigratorChef",
+        "internalType": "contract IMigrator",
         "name": "",
         "type": "address"
       }
@@ -352,7 +295,7 @@
         "type": "address"
       }
     ],
-    "name": "pendingCake",
+    "name": "pendingRewards",
     "outputs": [
       {
         "internalType": "uint256",
@@ -374,7 +317,7 @@
     "name": "poolInfo",
     "outputs": [
       {
-        "internalType": "contract IBEP20",
+        "internalType": "contract IERC20",
         "name": "lpToken",
         "type": "address"
       },
@@ -390,7 +333,7 @@
       },
       {
         "internalType": "uint256",
-        "name": "accCakePerShare",
+        "name": "accRewardPerShare",
         "type": "uint256"
       }
     ],
@@ -415,6 +358,19 @@
     "name": "renounceOwnership",
     "outputs": [],
     "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "rewardsPerBlock",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
     "type": "function"
   },
   {
@@ -443,7 +399,7 @@
   {
     "inputs": [
       {
-        "internalType": "contract IMigratorChef",
+        "internalType": "contract IMigrator",
         "name": "_migrator",
         "type": "address"
       }
@@ -461,19 +417,6 @@
         "internalType": "uint256",
         "name": "",
         "type": "uint256"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [],
-    "name": "syrup",
-    "outputs": [
-      {
-        "internalType": "contract SyrupBar",
-        "name": "",
-        "type": "address"
       }
     ],
     "stateMutability": "view",
@@ -506,16 +449,16 @@
     "type": "function"
   },
   {
-    "inputs": [
+    "inputs": [],
+    "name": "treasury",
+    "outputs": [
       {
-        "internalType": "uint256",
-        "name": "multiplierNumber",
-        "type": "uint256"
+        "internalType": "contract ITreasury",
+        "name": "",
+        "type": "address"
       }
     ],
-    "name": "updateMultiplier",
-    "outputs": [],
-    "stateMutability": "nonpayable",
+    "stateMutability": "view",
     "type": "function"
   },
   {

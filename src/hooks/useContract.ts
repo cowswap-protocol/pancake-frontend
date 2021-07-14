@@ -23,6 +23,7 @@ import {
   getChainlinkOracleContract,
   getSouschefV2Contract,
   getLotteryV2Contract,
+  getPotContract,
 } from 'utils/contractHelpers'
 
 /**
@@ -140,4 +141,9 @@ export const usePredictionsContract = () => {
 export const useChainlinkOracleContract = () => {
   const web3 = useWeb3()
   return useMemo(() => getChainlinkOracleContract(web3), [web3])
+}
+
+export const usePotContract = () => {
+  const web3 = useWeb3()
+  return useMemo(() => getPotContract(web3), [web3])
 }

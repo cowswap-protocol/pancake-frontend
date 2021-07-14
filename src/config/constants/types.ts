@@ -78,6 +78,20 @@ export interface PoolConfig {
   enableEmergencyWithdraw?: boolean
 }
 
+export interface PotConfig {
+  sousId: number
+  earningToken: Token
+  stakingToken: Token
+  dailyRewards: string
+  userDailyMax: string
+  startTime: number
+  endTime: number
+  harvest?: boolean
+  isFinished?: boolean
+  lpAddresses: Address
+  quoteToken: Token
+}
+
 export type Images = {
   lg: string
   md: string

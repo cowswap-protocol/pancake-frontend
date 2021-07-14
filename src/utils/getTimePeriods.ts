@@ -50,4 +50,15 @@ const getTimePeriods = (seconds: number) => {
   return timeLeft
 }
 
+export const getTimestamp = (time?: Date) => {
+  const date = time || new Date()
+  return parseInt((date.getTime() / 1000).toString())
+}
+
+export const getDate = (time?: Date) => {
+  const date = time || new Date()
+  const ts = parseInt((date.getTime() / 1000).toString())
+  return ts - ts % DAY_IN_SECONDS
+}
+
 export default getTimePeriods
