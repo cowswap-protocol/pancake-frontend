@@ -2,8 +2,8 @@ import { useCallback } from 'react'
 import { useWeb3React } from '@web3-react/core'
 import { useAppDispatch } from 'state'
 import { updateUserStakedBalance, updateUserBalance } from 'state/actions'
-import { stake, sousStake, sousStakeBnb } from 'utils/callHelpers'
-import { useMasterchef, useSousChef } from './useContract'
+import { stake, sousStake, sousStakeBnb, enter } from 'utils/callHelpers'
+import { useMasterchef, useSousChef, useCowboyContract } from './useContract'
 
 const useStake = (pid: number) => {
   const { account } = useWeb3React()
@@ -39,6 +39,22 @@ export const useSousStake = (sousId: number, isUsingBnb = false) => {
       dispatch(updateUserBalance(sousId, account))
     },
     [account, dispatch, isUsingBnb, masterChefContract, sousChefContract, sousId],
+  )
+
+  return { onStake: handleStake }
+}
+
+
+export const useCowboyStake = () => {
+  const { account } = useWeb3React()
+  const cowboyContract = useCowboyContract()
+
+  const handleStake = useCallback(
+    async (amount: string) => {
+      const txHash = await enter(cowboyContract, account, amount)
+      console.info(txHash)
+    },
+    [account, cowboyContract],
   )
 
   return { onStake: handleStake }

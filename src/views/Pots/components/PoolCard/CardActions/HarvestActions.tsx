@@ -1,10 +1,13 @@
-import React from 'react'
-import { Flex, Text, Button, Heading, useModal, Skeleton, Box } from 'cowswap-uikit'
+import React, { useState } from 'react'
+import { Flex, Text, Button, Heading, useModal, Skeleton, Box, AutoRenewIcon } from 'cowswap-uikit'
 import BigNumber from 'bignumber.js'
 import { Token } from 'config/constants/types'
 import { useTranslation } from 'contexts/Localization'
 import { getFullDisplayBalance, getBalanceNumber, formatNumber } from 'utils/formatBalance'
 import Balance from 'components/Balance'
+import useToast from 'hooks/useToast'
+import { useClaim } from 'hooks/useHarvest'
+import { getAddress } from 'utils/addressHelpers'
 import CollectModal from '../Modals/CollectModal'
 
 interface HarvestActionsProps {
@@ -36,16 +39,35 @@ const HarvestActions: React.FC<HarvestActionsProps> = ({
   const hasEarnings = earnings.toNumber() >= 0
   const hasEarned = earned.gt(0)
 
-  const [onPresentCollect] = useModal(
-    <CollectModal
-      formattedBalance={formattedBalance}
-      fullBalance={fullBalance}
-      earningToken={earningToken}
-      earningsDollarValue={earningTokenDollarBalance}
-      stakingToken={stakingToken}
-      sousId={sousId}
-    />,
-  )
+
+  const { onReward } = useClaim(getAddress(stakingToken.address))
+  const { toastSuccess, toastError } = useToast()
+  const [pendingTx, setPendingTx] = useState(false)
+  const handleHarvest = async () => {
+    setPendingTx(true)
+    try {
+      await onReward()
+      toastSuccess(
+        `${t('Harvested')}!`,
+        t('Your %symbol% earnings have been sent to your wallet!', { symbol: earningToken.symbol }),
+      )
+      setPendingTx(false)
+    } catch (e) {
+      toastError(t('Canceled'), t('Please try again and confirm the transaction.'))
+      setPendingTx(false)
+    }
+  }
+
+  // const [onPresentCollect] = useModal(
+  //   <CollectModal
+  //     formattedBalance={formattedBalance}
+  //     fullBalance={fullBalance}
+  //     earningToken={earningToken}
+  //     earningsDollarValue={earningTokenDollarBalance}
+  //     stakingToken={stakingToken}
+  //     sousId={sousId}
+  //   />,
+  // )
 
   return (
     <>
@@ -59,7 +81,7 @@ const HarvestActions: React.FC<HarvestActionsProps> = ({
               <>
                 <Box display="inline">
                   <Text color="secondary" bold fontSize="12px"> 
-                    Today COWB Earned
+                    COWB Earned Today
                    </Text>
                 </Box>
                 <Balance bold fontSize="20px" decimals={0} value={earningTokenBalance} />
@@ -124,7 +146,12 @@ const HarvestActions: React.FC<HarvestActionsProps> = ({
           </>
         )}
       </Flex>
-      <Button disabled={!hasEarned} onClick={onPresentCollect}>
+      <Button 
+        disabled={!hasEarned} 
+        onClick={handleHarvest}
+        isLoading={pendingTx}
+          endIcon={pendingTx ? <AutoRenewIcon spin color="currentColor" /> : null}
+      >
         { t('Collect') }
       </Button>
     </Flex>

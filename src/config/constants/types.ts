@@ -88,7 +88,13 @@ export interface PotConfig {
   endTime: number
   harvest?: boolean
   isFinished?: boolean
+  quoteToken: Token
+}
+
+export interface PriceConfig{
+  lpSymbol: string
   lpAddresses: Address
+  token: Token
   quoteToken: Token
 }
 
@@ -166,4 +172,11 @@ export type PageMeta = {
   title: string
   description?: string
   image?: string
+}
+
+export interface CowboyConfig {
+  symbol: string
+  address?: Address
+  decimals?: number
+  price?: string
 }

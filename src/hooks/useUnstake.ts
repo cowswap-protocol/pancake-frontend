@@ -2,8 +2,8 @@ import { useCallback } from 'react'
 import { useWeb3React } from '@web3-react/core'
 import { useAppDispatch } from 'state'
 import { updateUserStakedBalance, updateUserBalance, updateUserPendingReward } from 'state/actions'
-import { unstake, sousUnstake, sousEmergencyUnstake } from 'utils/callHelpers'
-import { useMasterchef, useSousChef } from './useContract'
+import { unstake, sousUnstake, sousEmergencyUnstake, leave } from 'utils/callHelpers'
+import { useMasterchef, useSousChef, useCowboyContract } from './useContract'
 
 const useUnstake = (pid: number) => {
   const { account } = useWeb3React()
@@ -43,6 +43,21 @@ export const useSousUnstake = (sousId, enableEmergencyWithdraw = false) => {
       dispatch(updateUserPendingReward(sousId, account))
     },
     [account, dispatch, enableEmergencyWithdraw, masterChefContract, sousChefContract, sousId],
+  )
+
+  return { onUnstake: handleUnstake }
+}
+
+export const useCowboyUnstake = () => {
+  const { account } = useWeb3React()
+  const cowboyContract = useCowboyContract()
+
+  const handleUnstake = useCallback(
+    async (amount: string) => {
+      const txHash = await leave(cowboyContract, account, amount)
+      console.info(txHash)
+    },
+    [account, cowboyContract],
   )
 
   return { onUnstake: handleUnstake }

@@ -2,6 +2,7 @@ import { ChainId } from '@pancakeswap-libs/sdk'
 import addresses from 'config/constants/contracts'
 import tokens from 'config/constants/tokens'
 import { Address } from 'config/constants/types'
+import cowboyConfig from 'config/constants/cowboy'
 
 export const getAddress = (address: Address): string => {
   const chainId = process.env.REACT_APP_CHAIN_ID
@@ -61,4 +62,11 @@ export const getPredictionsAddress = () => {
 }
 export const getChainlinkOracleAddress = () => {
   return getAddress(addresses.chainlinkOracle)
+}
+
+export const getCowbAddress = () => {
+  return getAddress(tokens.cowb.address)
+}
+export const getCowboyAddress = () => {
+  return getAddress(cowboyConfig.address)
 }

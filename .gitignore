@@ -33,4 +33,5 @@ yarn-error.log*
 debug.log*
 .yalc
 yalc.lock
+deploy.sh
 

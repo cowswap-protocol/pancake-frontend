@@ -21,9 +21,12 @@ const StyledCell = styled(BaseCell)`
 const TotalStakedCell: React.FC<TotalStakedCellProps> = ({ pool }) => {
   const { t } = useTranslation()
   
-  const { sousId, stakingToken, userData, todayTotalStaked } = pool
+  const { sousId, stakingToken, userData, todayTotalStaked, earningTokenPrice, stakingTokenPrice } = pool
 
   const totalStaked = getBalanceNumber(new BigNumber(todayTotalStaked), stakingToken.decimals) // userData ? userData.stakedBalance : BIG_ZERO
+
+  const totalStakedUSD = totalStaked * stakingTokenPrice
+
   // const { totalCakeInVault } = useCakeVault()
 
   // const isManualCakePool = sousId === 0
@@ -49,11 +52,26 @@ const TotalStakedCell: React.FC<TotalStakedCellProps> = ({ pool }) => {
         </Text>
         {totalStaked >= 0 ? (
           <Flex height="20px" alignItems="center">
-            <Balance fontSize="16px" value={totalStaked} decimals={0} unit={` ${stakingToken.symbol}`} />
+            <Balance fontSize="16px" value={totalStaked} decimals={2} unit={` ${stakingToken.symbol}`} />
           </Flex>
         ) : (
           <Skeleton width="80px" height="16px" />
         )}
+        {totalStaked > 0 ? (
+          <>
+            {earningTokenPrice > 0 && (
+              <Balance
+                display="inline"
+                fontSize="12px"
+                color="textSubtle"
+                decimals={2}
+                prefix="~"
+                value={totalStakedUSD}
+                unit=" USD"
+              />
+            )}
+          </>
+        ) : null }
       </CellContent>
     </StyledCell>
   )

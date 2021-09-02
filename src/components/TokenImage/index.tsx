@@ -25,7 +25,7 @@ const getImageUrlFromToken = (token: Token) => {
 
 const TokenImage: React.FC<TokenImageProps> = ({ token, ...props }) => {
   return (
-    <UIKitTokenImage src={getImageUrlFromToken(token)} height={64} width={64} title={token.symbol} />
+    <UIKitTokenImage src={getImageUrlFromToken(token)} height={32} width={32} title={token.symbol} />
   )
 }
 

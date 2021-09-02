@@ -16,7 +16,7 @@ export const BSC_BLOCK_TIME = 3
 // CAKE_PER_BLOCK in config/index.ts = 40 as we only change the amount sent to the burn pool which is effectively a farm.
 // CAKE/Block in src/views/Home/components/CakeStats.tsx = 20 (40 - Amount sent to burn pool)
 
-export const CAKE_PER_BLOCK = new BigNumber(40)
+export const CAKE_PER_BLOCK = new BigNumber(1284246)
 export const BLOCKS_PER_YEAR = new BigNumber((60 / BSC_BLOCK_TIME) * 60 * 24 * 365) // 10512000
 export const CAKE_PER_YEAR = CAKE_PER_BLOCK.times(BLOCKS_PER_YEAR)
 export const BASE_URL = 'https://cowswap.org'
@@ -29,3 +29,6 @@ export const LOTTERY_TICKET_PRICE = 1
 export const DEFAULT_TOKEN_DECIMAL = BIG_TEN.pow(18)
 export const DEFAULT_GAS_LIMIT = 200000
 export const DEFAULT_GAS_PRICE = 5
+export const DAYS_PER_YEAR = 365
+export const FARM_START_BLOCK = 11953983
+export const FARM_END_BLOCK = 32977983

@@ -7,11 +7,13 @@ import { ChainId } from '@pancakeswap-libs/sdk'
 import styled from 'styled-components'
 import FlexLayout from 'components/layout/Flex'
 import Page from 'components/layout/Page'
-import { useFarms, usePollFarmsData, usePriceCakeBusd } from 'state/hooks'
+import { useFarms, usePollFarmsData, usePriceCakeBusd, useBlock } from 'state/hooks'
 import usePersistState from 'hooks/usePersistState'
+import { FARM_START_BLOCK, FARM_END_BLOCK } from 'config/index'
 import { Farm } from 'state/types'
 import { useTranslation } from 'contexts/Localization'
 import { getBalanceNumber } from 'utils/formatBalance'
+import { getAddress } from "utils/addressHelpers"
 import { getFarmApr } from 'utils/apr'
 import { orderBy } from 'lodash'
 import isArchivedPid from 'utils/farmHelpers'
@@ -110,10 +112,18 @@ const Farms: React.FC = () => {
   const [viewMode, setViewMode] = usePersistState(ViewMode.TABLE, { localStorageKey: 'pancake_farm_view' })
   const { account } = useWeb3React()
   const [sortOption, setSortOption] = useState('hot')
+  const [isFarming, setIsFarming ] = useState(false)
+
+  const { currentBlock } = useBlock()
 
   const isArchived = pathname.includes('archived')
   const isInactive = pathname.includes('history')
   const isActive = !isInactive && !isArchived
+
+  console.log("currentBlock=", currentBlock)
+  useEffect(() => {
+    setIsFarming(currentBlock >= FARM_START_BLOCK && currentBlock <= FARM_END_BLOCK)
+  }, [currentBlock])
 
   usePollFarmsData(isArchived)
 
@@ -129,6 +139,8 @@ const Farms: React.FC = () => {
   const activeFarms = farmsLP.filter((farm) => farm.multiplier !== '0X' && !isArchivedPid(farm.pid))
   const inactiveFarms = farmsLP.filter((farm) => farm.multiplier === '0X' && !isArchivedPid(farm.pid))
   const archivedFarms = farmsLP.filter((farm) => isArchivedPid(farm.pid))
+
+  console.log("activeFarms=", activeFarms)
 
   const stakedOnlyFarms = activeFarms.filter(
     (farm) => farm.userData && new BigNumber(farm.userData.stakedBalance).isGreaterThan(0),
@@ -149,8 +161,8 @@ const Farms: React.FC = () => {
           return farm
         }
         const totalLiquidity = new BigNumber(farm.lpTotalInQuoteToken).times(farm.quoteToken.busdPrice)
-        const apr = isActive
-          ? getFarmApr(new BigNumber(farm.poolWeight), cakePrice, totalLiquidity, farm.lpAddresses[ChainId.MAINNET])
+        const apr = isActive && isFarming
+          ? getFarmApr(new BigNumber(farm.poolWeight), cakePrice, totalLiquidity, getAddress(farm.lpAddresses))
           : 0
 
         return { ...farm, apr, liquidity: totalLiquidity }
@@ -164,7 +176,7 @@ const Farms: React.FC = () => {
       }
       return farmsToDisplayWithAPR
     },
-    [cakePrice, query, isActive],
+    [cakePrice, query, isActive, isFarming],
   )
 
   const handleChangeQuery = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -346,7 +358,7 @@ const Farms: React.FC = () => {
     <>
       <PageHeader>
         <Heading as="h1" scale="xxl" color="secondary" mb="24px">
-          {t('Cow Farms')}
+          {t('Baby Cow Farms')}
         </Heading>
         <Heading scale="lg" color="text">
           {t('Stake LP tokens to earn COWB.')}
@@ -399,7 +411,6 @@ const Farms: React.FC = () => {
         </ControlContainer>
         {renderContent()}
         <div ref={loadMoreRef} />
-        <StyledImage src="/images/cowb.svg" alt="Cow Baby" width={120} height={120} />
       </Page>
     </>
   )

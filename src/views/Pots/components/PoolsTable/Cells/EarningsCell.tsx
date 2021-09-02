@@ -112,7 +112,6 @@ const EarningsCell: React.FC<EarningsCellProps> = ({ pool, account, userDataLoad
                   mt="4px"
                   bold={!isXs && !isSm}
                   fontSize={isXs || isSm ? '14px' : '16px'}
-                  color={hasEarnings ? 'primary' : 'textDisabled'}
                   decimals={hasEarnings ? 0 : 0}
                   value={hasEarnings ? earningTokenBalance : 0}
                 />
@@ -136,11 +135,7 @@ const EarningsCell: React.FC<EarningsCellProps> = ({ pool, account, userDataLoad
                   </Text>
                 )}
               </Box>
-              {hasEarnings && !isXs && !isSm && (
-                <HelpIconWrapper>
-                  <HelpIcon color="textSubtle" />
-                </HelpIconWrapper>
-              )}
+             
             </Flex>
           </>
         )}

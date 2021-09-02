@@ -57,7 +57,7 @@ const ApyCalculatorModal: React.FC<ApyCalculatorModalProps> = ({
   apr,
   linkLabel,
   linkHref,
-  earningTokenSymbol = 'CAKE',
+  earningTokenSymbol = 'COWB',
   roundingDecimals = 2,
   compoundFrequency = 1,
   performanceFee = 0,
@@ -104,7 +104,7 @@ const ApyCalculatorModal: React.FC<ApyCalculatorModalProps> = ({
       {isFarm && (
         <Flex mb="24px" justifyContent="space-between">
           <Text small color="textSubtle">
-            {t('APR (incl. LP rewards)')}
+            {t('APR')}
           </Text>
           <Text small>{apr.toFixed(roundingDecimals)}%</Text>
         </Flex>
@@ -205,12 +205,13 @@ const ApyCalculatorModal: React.FC<ApyCalculatorModalProps> = ({
                 {t('Calculated based on current rates.')}
               </Text>
             </li>
-            <li>
+            {false && (<li>
               <Text fontSize="12px" textAlign="center" color="textSubtle" display="inline">
                 {t('Compounding %freq%x daily.', { freq: compoundFrequency.toLocaleString() })}
               </Text>
-            </li>
-            {isFarm && (
+            </li>)
+            }
+            {isFarm && false && (
               <li>
                 <Text fontSize="12px" textAlign="center" color="textSubtle" display="inline">
                   {t('LP rewards: 0.17% trading fees, distributed proportionally among LP token holders.')}

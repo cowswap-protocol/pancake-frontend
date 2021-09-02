@@ -1,5 +1,5 @@
 import BigNumber from 'bignumber.js'
-import { BLOCKS_PER_YEAR, CAKE_PER_YEAR } from 'config'
+import { BLOCKS_PER_YEAR, CAKE_PER_YEAR, DAYS_PER_YEAR } from 'config'
 import lpAprs from 'config/constants/lpAprs.json'
 
 /**
@@ -19,6 +19,29 @@ export const getPoolApr = (
   const totalRewardPricePerYear = new BigNumber(rewardTokenPrice).times(tokenPerBlock).times(BLOCKS_PER_YEAR)
   const totalStakingTokenInPool = new BigNumber(stakingTokenPrice).times(totalStaked)
   const apr = totalRewardPricePerYear.div(totalStakingTokenInPool).times(100)
+  return apr.isNaN() || !apr.isFinite() ? null : apr.toNumber()
+}
+
+
+export const getPotApr = (
+  stakingTokenPrice: number,
+  rewardTokenPrice: number,
+  totalStaked: number,
+  tokenPerDay: number,
+): number => {
+  const totalRewardPricePerYear = new BigNumber(rewardTokenPrice).times(tokenPerDay).times(DAYS_PER_YEAR)
+  const totalStakingTokenInPool = new BigNumber(stakingTokenPrice).times(totalStaked)
+  const apr = totalRewardPricePerYear.div(totalStakingTokenInPool).times(100)
+  return apr.isNaN() || !apr.isFinite() ? null : apr.toNumber()
+}
+
+export const getCowboyApr = (
+  totalStaked: number,
+  tokenPerBlock: number,
+): number => {
+  const totalRewardsPerYear = new BigNumber(tokenPerBlock).times(BLOCKS_PER_YEAR)
+  const totalStakingTokenInPool = new BigNumber(totalStaked)
+  const apr = totalRewardsPerYear.div(totalStakingTokenInPool).times(100)
   return apr.isNaN() || !apr.isFinite() ? null : apr.toNumber()
 }
 

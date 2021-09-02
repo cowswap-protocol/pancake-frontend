@@ -14,7 +14,6 @@
     "generate:config": "ts-node --compiler-options '{\"module\":\"commonjs\"}' scripts/generateConfig",
     "updateLPsAPR": "ts-node --compiler-options '{\"module\":\"commonjs\"}' scripts/updateLPsAPR"
   },
- 
   "browserslist": {
     "production": [
       ">0.2%",
@@ -42,7 +41,7 @@
     "bignumber.js": "^9.0.0",
     "canvas-confetti": "^1.3.3",
     "chart.js": "2.9.4",
-    "cowswap-uikit": "0.39.4",
+    "cowswap-uikit": "file:.yalc/cowswap-uikit",
     "date-fns": "^2.21.3",
     "ethers": "^5.1.4",
     "graphql": "^15.5.0",

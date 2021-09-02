@@ -103,8 +103,6 @@ const Pots: React.FC = () => {
   const hasStakeInFinishedPools = stakedOnlyFinishedPools.length > 0
 
   usePollPotsData()
-  // useFetchCakeVault()
-  // useFetchPublicPoolsData()
 
   useEffect(() => {
     const showMorePools = (entries) => {
@@ -206,12 +204,23 @@ const Pots: React.FC = () => {
               {t('Just trade some tokens on Cowswap to earn COWB.')}
             </Heading>
             <Heading scale="md" color="text">
+              {t('Rewards are distributed on a daily basis.')}
+            </Heading>
+            <Heading scale="md" color="text">
               {t('No risk.')}
             </Heading>
           </Flex>
-          <Flex flex="1" height="fit-content" justifyContent="center" alignItems="center" mt={['24px', null, '0']}>
+          <Flex flex="1" height="fit-content" justifyContent="right" alignItems="end" mt={['24px', null, '0']}>
             { /* <HelpButton /> */ }
             { /* <BountyCard /> */ }
+            <Image
+              mx="auto"
+              mt="12px"
+              src="/images/cowb.svg"
+              alt="CowBaby"
+              width={100}
+              height={100}
+            />
           </Flex>
         </Flex>
       </PageHeader>
@@ -272,14 +281,7 @@ const Pots: React.FC = () => {
         )}
         {viewMode === ViewMode.CARD ? cardLayout : tableLayout}
         <div ref={loadMoreRef} />
-        <Image
-          mx="auto"
-          mt="12px"
-          src="/images/cowb.svg"
-          alt="Pancake illustration"
-          width={100}
-          height={100}
-        />
+        
       </Page>
     </>
   )

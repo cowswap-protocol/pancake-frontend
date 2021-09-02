@@ -88,6 +88,7 @@ const FarmCard: React.FC<FarmCardProps> = ({ farm, removed, cakePrice, account }
   const lpLabel = farm.lpSymbol && farm.lpSymbol.toUpperCase().replace('PANCAKE', '')
   const earnLabel = farm.dual ? farm.dual.earnLabel : t('COWB + Fees')
 
+  const noAPR = farm.apr === undefined
   const farmAPR = farm.apr && farm.apr.toLocaleString('en-US', { maximumFractionDigits: 2 })
 
   const liquidityUrlPathParts = getLiquidityUrlPathParts({
@@ -112,9 +113,8 @@ const FarmCard: React.FC<FarmCardProps> = ({ farm, removed, cakePrice, account }
         <Flex justifyContent="space-between" alignItems="center">
           <Text>{t('APR')}:</Text>
           <Text bold style={{ display: 'flex', alignItems: 'center' }}>
-            {farm.apr ? (
+            {!noAPR ? (
               <>
-                <ApyButton lpLabel={lpLabel} addLiquidityUrl={addLiquidityUrl} cakePrice={cakePrice} apr={farm.apr} />
                 {farmAPR}%
               </>
             ) : (

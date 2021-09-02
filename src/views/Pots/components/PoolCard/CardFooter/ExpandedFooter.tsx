@@ -42,11 +42,11 @@ const ExpandedWrapper = styled(Flex)`
 
 const ExpandedFooter: React.FC<ExpandedFooterProps> = ({ pool, account }) => {
   const { t } = useTranslation()
-  const { currentBlock } = useBlock()
-  const {
-    totalCakeInVault,
-    fees: { performanceFee },
-  } = useCakeVault()
+  // const { currentBlock } = useBlock()
+  // const {
+  //   totalCakeInVault,
+  //   fees: { performanceFee },
+  // } = useCakeVault()
 
   const {
     sousId,
@@ -60,6 +60,7 @@ const ExpandedFooter: React.FC<ExpandedFooterProps> = ({ pool, account }) => {
 
   const totalStaked = new BigNumber(todayTotalStaked)
   const stakingLimit = new BigNumber(userDailyMax)
+
 
   const tokenAddress = earningToken.address ? getAddress(earningToken.address) : ''
   const poolContractAddress = getAddress(POT_ADDRESS)
@@ -93,7 +94,7 @@ const ExpandedFooter: React.FC<ExpandedFooterProps> = ({ pool, account }) => {
         <Flex alignItems="flex-start">
           {totalStaked && totalStaked.gte(0) ? (
             <>
-              <Balance small value={getTotalStakedBalance()} decimals={0} unit={` ${stakingToken.symbol}`} />
+              <Balance small value={getTotalStakedBalance()} decimals={2} unit={` ${stakingToken.symbol}`} />
               <span ref={totalStakedTargetRef}>
                 <HelpIcon color="textSubtle" width="20px" ml="6px" mt="4px" />
               </span>
@@ -107,7 +108,7 @@ const ExpandedFooter: React.FC<ExpandedFooterProps> = ({ pool, account }) => {
       {stakingLimit && stakingLimit.gt(0) && (
         <Flex mb="2px" justifyContent="space-between">
           <Text small>{t('Max. stake per user')}:</Text>
-          <Text small>{`${getFullDisplayBalance(stakingLimit, stakingToken.decimals, 0)} ${stakingToken.symbol}`}</Text>
+          <Text small>{`${getFullDisplayBalance(stakingLimit, 0, 0)} ${stakingToken.symbol}`}</Text>
         </Flex>
       )}
 

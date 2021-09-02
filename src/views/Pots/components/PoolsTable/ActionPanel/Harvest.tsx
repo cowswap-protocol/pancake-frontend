@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Button, Text, useModal, Flex, TooltipText, useTooltip, Skeleton, Heading } from 'cowswap-uikit'
+import { Button, Text, useModal, Flex, TooltipText, useTooltip, Skeleton, Heading, AutoRenewIcon } from 'cowswap-uikit'
 import BigNumber from 'bignumber.js'
 import { useWeb3React } from '@web3-react/core'
 import { getCakeVaultEarnings } from 'views/Pools/helpers'
@@ -68,16 +68,34 @@ const HarvestAction: React.FunctionComponent<HarvestActionProps> = ({
   // hasEarnings = isAutoVault ? hasAutoEarnings : hasEarnings
   // earningTokenDollarBalance = isAutoVault ? autoUsdToDisplay : earningTokenDollarBalance
 
-  const [onPresentCollect] = useModal(
-    <CollectModal
-      formattedBalance={formattedBalance}
-      fullBalance={fullBalance}
-      earningToken={earningToken}
-      earningsDollarValue={earningTokenDollarBalance}
-      stakingToken={stakingToken}
-      sousId={sousId}
-    />,
-  )
+  const { onReward } = useClaim(getAddress(stakingToken.address))
+  const { toastSuccess, toastError } = useToast()
+  const [pendingTx, setPendingTx] = useState(false)
+  const handleHarvest = async () => {
+    setPendingTx(true)
+    try {
+      await onReward()
+      toastSuccess(
+        `${t('Harvested')}!`,
+        t('Your %symbol% earnings have been sent to your wallet!', { symbol: earningToken.symbol }),
+      )
+      setPendingTx(false)
+    } catch (e) {
+      toastError(t('Canceled'), t('Please try again and confirm the transaction.'))
+      setPendingTx(false)
+    }
+  }
+  
+  // const [onPresentCollect] = useModal(
+  //   <CollectModal
+  //     formattedBalance={formattedBalance}
+  //     fullBalance={fullBalance}
+  //     earningToken={earningToken}
+  //     earningsDollarValue={earningTokenDollarBalance}
+  //     stakingToken={stakingToken}
+  //     sousId={sousId}
+  //   />,
+  // )
 
   // const { targetRef, tooltip, tooltipVisible } = useTooltip(
   //   t('Subtracted automatically from each yield harvest and burned.'),
@@ -114,7 +132,7 @@ const HarvestAction: React.FunctionComponent<HarvestActionProps> = ({
   if (!userDataLoaded) {
     return (
       <ActionContainer>
-        <ActionTitles>{ t('Today COWB Earned') }</ActionTitles>
+        <ActionTitles >{ t('Today COWB Earned') }</ActionTitles>
         <ActionContent>
           <Skeleton width={180} height="32px" marginTop={14} />
         </ActionContent>
@@ -132,7 +150,7 @@ const HarvestAction: React.FunctionComponent<HarvestActionProps> = ({
           <>
             {hasEarnings ? (
               <>
-                <Balance lineHeight="1" bold color="textDisabled" fontSize="20px" decimals={0} value={earningTokenBalance} />
+                <Balance lineHeight="1" bold  fontSize="20px" decimals={0} value={earningTokenBalance} />
                 {earningTokenPrice > 0 && (
                   <Balance
                     display="inline"
@@ -187,7 +205,9 @@ const HarvestAction: React.FunctionComponent<HarvestActionProps> = ({
 
         <Button 
           disabled={!hasEarned} 
-          onClick={onPresentCollect}
+          onClick={handleHarvest}
+          isLoading={pendingTx}
+          endIcon={pendingTx ? <AutoRenewIcon spin color="currentColor" /> : null}
         >
           { t('Collect') }
         </Button>

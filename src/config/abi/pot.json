@@ -5,11 +5,6 @@
         "internalType": "address",
         "name": "treasury_",
         "type": "address"
-      },
-      {
-        "internalType": "address",
-        "name": "cowboy_",
-        "type": "address"
       }
     ],
     "stateMutability": "nonpayable",
@@ -53,42 +48,11 @@
     "type": "function"
   },
   {
-    "inputs": [
-      {
-        "internalType": "address",
-        "name": "user",
-        "type": "address"
-      },
-      {
-        "internalType": "address",
-        "name": "token",
-        "type": "address"
-      }
-    ],
-    "name": "collect",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
     "inputs": [],
     "name": "cowb",
     "outputs": [
       {
         "internalType": "contract IERC20",
-        "name": "",
-        "type": "address"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [],
-    "name": "cowboy",
-    "outputs": [
-      {
-        "internalType": "contract ICowBoy",
         "name": "",
         "type": "address"
       }
@@ -464,12 +428,12 @@
   {
     "inputs": [
       {
-        "internalType": "uint256",
-        "name": "max",
-        "type": "uint256"
+        "internalType": "address",
+        "name": "router_",
+        "type": "address"
       }
     ],
-    "name": "setRotalTradingRewardMax",
+    "name": "setRouter",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
@@ -477,12 +441,12 @@
   {
     "inputs": [
       {
-        "internalType": "address",
-        "name": "router_",
-        "type": "address"
+        "internalType": "uint256",
+        "name": "max",
+        "type": "uint256"
       }
     ],
-    "name": "setRouter",
+    "name": "setTotalTradingRewardMax",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"

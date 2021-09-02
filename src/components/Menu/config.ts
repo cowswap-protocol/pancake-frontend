@@ -5,17 +5,22 @@ const config: (t: ContextApi['t']) => MenuEntry[] = (t) => [
   {
     label: t('Home'),
     icon: 'HomeIcon',
-    href: '/',
+    href: 'https://cowswap.org',
   },
   {
     label: t('Trade'),
     icon: 'TradeIcon',
-    href: '/',
+    href: 'https://cowswap.org/#/swap',
   },
   {
     label: t('Liquidity'),
-    icon: 'PoolIcon',
-    href: '/',
+    icon: 'LiquidityIcon',
+    href: 'https://cowswap.org/#/pool',
+  },
+  {
+    label: t('Limit Order(BETA)'),
+    icon: 'LimitOrderIcon',
+    href: 'https://cowswap.org/#/order',
   },
   // {
   //   label: t('Trade'),
@@ -32,15 +37,15 @@ const config: (t: ContextApi['t']) => MenuEntry[] = (t) => [
   //   ],
   // },
   {
-    label: t('Farms'),
+    label: 'Farms (Soon)',
     icon: 'FarmIcon',
-    href: '/farms',
+    href: '/',
   },
 
   {
-    label: 'POT',
-    icon: 'FarmIcon',
-    href: '/pots',
+    label: 'POTs (Soon)',
+    icon: 'MiningIcon',
+    href: '/',
   },
   // {
   //   label: t('Prediction (BETA)'),
@@ -49,8 +54,12 @@ const config: (t: ContextApi['t']) => MenuEntry[] = (t) => [
   // },
   {
     label: t('Cowboy'),
-    icon: 'TicketIcon',
+    icon: 'CowboyIcon',
     href: '/cowboy',
+    status: {
+      text: t('New').toLocaleUpperCase(),
+      color: 'success',
+    },
   },
   // {
   //   label: t('Collectibles'),
@@ -98,10 +107,25 @@ const config: (t: ContextApi['t']) => MenuEntry[] = (t) => [
     label: t('More'),
     icon: 'MoreIcon',
     items: [
-      
+      {
+        label: t('Docs'),
+        href: 'https://docs.cowswap.org/',
+      },
       {
         label: t('Github'),
-        href: 'https://github.com/pancakeswap',
+        href: 'https://github.com/cowswap-protocol',
+      },
+      {
+        label: t('Twitter'),
+        href: 'https://twitter.com/StakeCow',
+      },
+      {
+        label: t('Telegram-CN'),
+        href: 'https://t.me/stakecow_cn',
+      },
+      {
+        label: t('Telegram-EN'),
+        href: 'https://t.me/stakecow_en',
       },
       // {
       //   label: t('Docs'),

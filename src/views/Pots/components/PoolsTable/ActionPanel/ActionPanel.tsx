@@ -174,7 +174,7 @@ const ActionPanel: React.FC<ActionPanelProps> = ({ account, pool, userDataLoaded
   const maxStakeRow = stakingLimit.gt(0) ? (
     <Flex mb="10px" justifyContent="space-between">
       <Text>{t('Daily Max per user')}:</Text>
-      <Text>{`${getFullDisplayBalance(stakingLimit, stakingToken.decimals, 0)} ${stakingToken.symbol}`}</Text>
+      <Text>{`${stakingLimit.toFixed(0)} ${stakingToken.symbol}`}</Text>
     </Flex>
   ) : null
 

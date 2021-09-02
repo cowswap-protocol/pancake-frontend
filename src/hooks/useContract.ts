@@ -24,6 +24,8 @@ import {
   getSouschefV2Contract,
   getLotteryV2Contract,
   getPotContract,
+  getCowbContract,
+  getCowboyContract
 } from 'utils/contractHelpers'
 
 /**
@@ -146,4 +148,14 @@ export const useChainlinkOracleContract = () => {
 export const usePotContract = () => {
   const web3 = useWeb3()
   return useMemo(() => getPotContract(web3), [web3])
+}
+
+export const useCowbContract = () => {
+  const web3 = useWeb3()
+  return useMemo(() => getCowbContract(web3), [web3])
+}
+
+export const useCowboyContract = () => {
+  const web3 = useWeb3()
+  return useMemo(() => getCowboyContract(web3), [web3])
 }

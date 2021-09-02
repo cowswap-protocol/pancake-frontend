@@ -23,7 +23,7 @@ interface CardActionsProps {
 }
 
 const CardActions: React.FC<CardActionsProps> = ({ pool, stakedBalance }) => {
-  const { sousId, stakingToken, earningToken, harvest, userData, earningTokenPrice } = pool
+  const { sousId, stakingToken, earningToken, harvest, userData, earningTokenPrice, stakingTokenPrice } = pool
   // Pools using native BNB behave differently than pools using a token
   const isBnbPool = false // poolCategory === PoolCategory.BINANCE
   const { t } = useTranslation()
@@ -33,7 +33,7 @@ const CardActions: React.FC<CardActionsProps> = ({ pool, stakedBalance }) => {
   const earned = userData?.unclaimRewards ? new BigNumber(userData.unclaimRewards) : BIG_ZERO
 
   const stakedTokenBalance = getBalanceNumber(stakedBalance, stakingToken.decimals)
-
+  const stakedTokenUSD = stakedTokenBalance * stakingTokenPrice
   const isStaked = stakedBalance.gt(0)
   const isLoading = !userData
 
@@ -52,14 +52,25 @@ const CardActions: React.FC<CardActionsProps> = ({ pool, stakedBalance }) => {
 
         <Box display="inline">
           <InlineText color={isStaked ? 'secondary' : 'textSubtle'} bold fontSize="12px">
-            {isStaked ? stakingToken.symbol : t('Traded')}{' '}
+            {isStaked ? stakingToken.symbol : t('Traded Today')}{' '}
           </InlineText>
           <InlineText color={isStaked ? 'textSubtle' : 'secondary'} bold fontSize="12px">
-            {isStaked ? t('Traded') : `${stakingToken.symbol}`}
+            {isStaked ? t('Traded Today') : `${stakingToken.symbol}`}
           </InlineText>
         </Box>
 
         <Balance bold fontSize="20px" decimals={2} value={stakedTokenBalance} />
+        {stakedTokenUSD > 0 && (
+          <Balance
+            display="inline"
+            fontSize="12px"
+            color="textSubtle"
+            decimals={2}
+            prefix="~"
+            value={stakedTokenUSD}
+            unit=" USD"
+          />
+        )}
 
       </Flex>
     </Flex>

@@ -18,6 +18,7 @@ export const CellContent = styled(Flex)`
   ${Text} {
     line-height: 1;
   }
+  margin-left: 5px;
 `
 
 export default BaseCell

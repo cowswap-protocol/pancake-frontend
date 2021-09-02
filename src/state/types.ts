@@ -1,7 +1,7 @@
 import { ThunkAction } from 'redux-thunk'
 import { AnyAction } from '@reduxjs/toolkit'
 import BigNumber from 'bignumber.js'
-import { CampaignType, FarmConfig, Nft, PoolConfig, Team, PotConfig } from 'config/constants/types'
+import { CampaignType, FarmConfig, PriceConfig, Nft, PoolConfig, Team, PotConfig, CowboyConfig } from 'config/constants/types'
 
 export type AppThunk<ReturnType = void> = ThunkAction<ReturnType, State, unknown, AnyAction>
 
@@ -275,6 +275,30 @@ export interface PotsState {
   userDataLoaded: boolean
 }
 
+export interface LpPrice extends PriceConfig {
+  tokenPriceVsQuote?: SerializedBigNumber
+}
+
+export interface PricesState {
+  data: LpPrice[]
+}
+
+export interface Cowboy extends CowboyConfig {
+  apr?: number
+  totalSupply?: string
+  totalStaked?: string
+  userData?: {
+    allowance: string
+    cowbBalance: string
+    cowboyBalance: string
+  }
+}
+
+export interface CowboyState {
+  data: Cowboy
+  userDataLoaded: boolean
+}
+
 // Global state
 
 export interface State {
@@ -287,6 +311,8 @@ export interface State {
   teams: TeamsState
   collectibles: CollectiblesState
   pots: PotsState
+  prices: PricesState
+  cowboy: CowboyState
 }
 
 

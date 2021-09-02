@@ -18,7 +18,7 @@
       },
       {
         "internalType": "uint256",
-        "name": "_bonusEndBlock",
+        "name": "_endBlock",
         "type": "uint256"
       }
     ],
@@ -120,19 +120,6 @@
     "type": "event"
   },
   {
-    "inputs": [],
-    "name": "BONUS_MULTIPLIER",
-    "outputs": [
-      {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
     "inputs": [
       {
         "internalType": "uint256",
@@ -153,19 +140,6 @@
     "name": "add",
     "outputs": [],
     "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [],
-    "name": "bonusEndBlock",
-    "outputs": [
-      {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "stateMutability": "view",
     "type": "function"
   },
   {
@@ -213,6 +187,19 @@
     "type": "function"
   },
   {
+    "inputs": [],
+    "name": "endBlock",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
     "inputs": [
       {
         "internalType": "uint256",
@@ -225,7 +212,7 @@
         "type": "uint256"
       }
     ],
-    "name": "getMultiplier",
+    "name": "getRewards",
     "outputs": [
       {
         "internalType": "uint256",
@@ -358,19 +345,6 @@
     "name": "renounceOwnership",
     "outputs": [],
     "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [],
-    "name": "rewardsPerBlock",
-    "outputs": [
-      {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "stateMutability": "view",
     "type": "function"
   },
   {

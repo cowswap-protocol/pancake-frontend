@@ -23,22 +23,22 @@ const Apr: React.FC<AprProps> = ({ pool, showIcon, performanceFee = 0, ...props 
     stakingToken.address &&
     `${BASE_EXCHANGE_URL}/#/swap?outputCurrency=${stakingToken.address[process.env.REACT_APP_CHAIN_ID]}`
 
-  const [onPresentApyModal] = useModal(
-    <ApyCalculatorModal
-      tokenPrice={earningTokenPrice}
-      apr={apr}
-      linkLabel={t('Get %symbol%', { symbol: stakingToken.symbol })}
-      linkHref={apyModalLink || BASE_EXCHANGE_URL}
-      earningTokenSymbol={earningToken.symbol}
-      roundingDecimals={roundingDecimals}
-      compoundFrequency={compoundFrequency}
-      performanceFee={performanceFee}
-    />,
-  )
+  // const [onPresentApyModal] = useModal(
+  //   <ApyCalculatorModal
+  //     tokenPrice={earningTokenPrice}
+  //     apr={apr}
+  //     linkLabel={t('Get %symbol%', { symbol: stakingToken.symbol })}
+  //     linkHref={apyModalLink || BASE_EXCHANGE_URL}
+  //     earningTokenSymbol={earningToken.symbol}
+  //     roundingDecimals={roundingDecimals}
+  //     compoundFrequency={compoundFrequency}
+  //     performanceFee={performanceFee}
+  //   />,
+  // )
 
   const openRoiModal = (event: React.MouseEvent<HTMLElement>) => {
-    event.stopPropagation()
-    onPresentApyModal()
+    // event.stopPropagation()
+    // onPresentApyModal()
   }
 
   return (
@@ -53,11 +53,7 @@ const Apr: React.FC<AprProps> = ({ pool, showIcon, performanceFee = 0, ...props 
             decimals={2}
             unit="%"
           />
-          {!isFinished && showIcon && (
-            <Button onClick={openRoiModal} variant="text" width="20px" height="20px" padding="0px" marginLeft="4px">
-              <CalculateIcon color="textSubtle" width="20px" />
-            </Button>
-          )}
+          
         </>
       ) : (
         <Skeleton width="80px" height="16px" />

@@ -646,7 +646,7 @@ const tokens = {
     symbol: 'BUSD',
     address: {
       56: '0xe9e7CEA3DedcA5984780Bafc599bD69ADd087D56',
-      97: '',
+      97: '0xC540D1354fEfe15B0186899590687e33610c4059',
     },
     decimals: 18,
     projectLink: 'https://www.paxos.com/busd/',
@@ -781,7 +781,7 @@ const tokens = {
     symbol: 'USDT',
     address: {
       56: '0x55d398326f99059fF775485246999027B3197955',
-      97: '0xE02dF9e3e622DeBdD69fb838bB799E3F168902c5',
+      97: '0x4abF05933ba652b70e1E1Eb85a01BB2a380b00E9',
     },
     decimals: 18,
     projectLink: 'https://tether.to/',
@@ -1660,17 +1660,7 @@ const tokens = {
     },
     decimals: 18,
     projectLink: 'https://cowswap.org/',
-  },
-
-  mockusdt: {
-    symbol: 'USDT',
-    address: {
-      56: '0x55d398326f99059fF775485246999027B3197955',
-      97: '0x4abF05933ba652b70e1E1Eb85a01BB2a380b00E9',
-    },
-    decimals: 18,
-    projectLink: 'https://tether.to/',
-  },
+  }
 
 }
 

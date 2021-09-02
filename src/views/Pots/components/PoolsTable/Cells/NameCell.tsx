@@ -56,8 +56,8 @@ const NameCell: React.FC<NameCellProps> = ({ pool }) => {
   //   subtitle = `${t('Earn')} CAKE ${t('Stake').toLocaleLowerCase()} CAKE`
   // }
 
-  title = t('Mining COWB')
-  subtitle = `${t('Earn')} COWB ${t('Trade').toLocaleLowerCase()} ${stakingToken.symbol}`
+  title = t('Mining')
+  subtitle = `${t('Trade')} ${stakingToken.symbol} ${t('Earn')} COWB`
 
   return (
     <StyledCell role="cell">
@@ -71,7 +71,7 @@ const NameCell: React.FC<NameCellProps> = ({ pool }) => {
           </Text>
         )}
         <Text bold={!isXs && !isSm} small={isXs || isSm}>
-          {title}
+          {stakingToken.symbol}
         </Text>
         {showSubtitle && (
           <Text fontSize="12px" color="textSubtle">

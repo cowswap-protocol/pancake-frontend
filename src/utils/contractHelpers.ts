@@ -25,6 +25,8 @@ import {
   getPredictionsAddress,
   getChainlinkOracleAddress,
   getMulticallAddress,
+  getCowbAddress,
+  getCowboyAddress
 } from 'utils/addressHelpers'
 
 // ABI
@@ -55,6 +57,7 @@ import chainlinkOracleAbi from 'config/abi/chainlinkOracle.json'
 import MultiCallAbi from 'config/abi/Multicall.json'
 import { DEFAULT_GAS_PRICE } from 'config'
 import potABI from 'config/abi/pot.json'
+import cowboyABI from 'config/abi/cowboy.json'
 import { POT_ADDRESS } from 'config/constants/pots'
 
 import { getSettings, getGasPriceInWei } from './settings'
@@ -155,4 +158,12 @@ export const getMulticallContract = (web3?: Web3) => {
 
 export const getPotContract = (web3?: Web3) => {
   return getContract(potABI, getAddress(POT_ADDRESS), web3)
+}
+
+export const getCowbContract = (web3?: Web3) => {
+  return getContract(bep20Abi, getCowbAddress(), web3)
+}
+
+export const getCowboyContract = (web3?: Web3) => {
+  return getContract(cowboyABI, getCowboyAddress(), web3)
 }

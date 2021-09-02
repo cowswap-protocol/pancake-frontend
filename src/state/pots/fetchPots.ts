@@ -51,9 +51,11 @@ export const fetchPotsPublicData = async (potsToFetch: PotConfig[], date?: numbe
 
   const rawVolumes = await multicall(potABI, calls)
 
+
+
   return potsToFetch.map((pot, index) => {
     return {
-      sousId: pot.sousId,
+      ...pot,
       todayTotalStaked: rawVolumes[index].toString(),
     }
   })

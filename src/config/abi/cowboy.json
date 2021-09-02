@@ -149,24 +149,24 @@
 		"inputs": [
 			{
 				"internalType": "address",
-				"name": "to",
-				"type": "address"
-			}
-		],
-		"name": "autoEnter",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "address",
 				"name": "account",
 				"type": "address"
 			}
 		],
 		"name": "balanceOf",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "blocksPerYear",
 		"outputs": [
 			{
 				"internalType": "uint256",
@@ -185,19 +185,6 @@
 				"internalType": "contract IERC20",
 				"name": "",
 				"type": "address"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "cowbReserves",
-		"outputs": [
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
 			}
 		],
 		"stateMutability": "view",
@@ -241,6 +228,19 @@
 		"type": "function"
 	},
 	{
+		"inputs": [],
+		"name": "endBlock",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
 		"inputs": [
 			{
 				"internalType": "uint256",
@@ -251,6 +251,30 @@
 		"name": "enter",
 		"outputs": [],
 		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "from",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "to",
+				"type": "uint256"
+			}
+		],
+		"name": "getRewards",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
 		"type": "function"
 	},
 	{
@@ -352,6 +376,19 @@
 	{
 		"inputs": [],
 		"name": "rewardsPerBlock",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "startBlock",
 		"outputs": [
 			{
 				"internalType": "uint256",

@@ -4991,10 +4991,8 @@ countup.js@^1.9.3:
   resolved "https://registry.yarnpkg.com/countup.js/-/countup.js-1.9.3.tgz#ce3e50cd7160441e478f07da31895edcc0f1c9dd"
   integrity sha1-zj5QzXFgRB5HjwfaMYle3MDxyd0=
 
-cowswap-uikit@0.39.4:
-  version "0.39.4"
-  resolved "https://registry.yarnpkg.com/cowswap-uikit/-/cowswap-uikit-0.39.4.tgz#9f60fae531a462620314804eeaef56f5bd1acc28"
-  integrity sha512-PllFIJ6/akKZaW7QXtIbkEciaP2/iysmVMJvCrZXoHaRQjrv1Jgv/9TZujRJukTa5X74vkS10wRba39lckTvrg==
+"cowswap-uikit@file:.yalc/cowswap-uikit":
+  version "0.39.5"
   dependencies:
     "@popperjs/core" "^2.9.2"
     "@types/lodash" "^4.14.168"

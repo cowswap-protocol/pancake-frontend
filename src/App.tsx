@@ -3,7 +3,7 @@ import { Router, Redirect, Route, Switch } from 'react-router-dom'
 import { ResetCSS } from 'cowswap-uikit'
 import BigNumber from 'bignumber.js'
 import useEagerConnect from 'hooks/useEagerConnect'
-import { usePollCoreFarmData, useFetchProfile, usePollBlockNumber } from 'state/hooks'
+import { usePollCoreFarmData, useFetchProfile, usePollBlockNumber, usePollPricesData } from 'state/hooks'
 import GlobalStyle from './style/Global'
 import Menu from './components/Menu'
 import SuspenseWithChunkError from './components/SuspenseWithChunkError'
@@ -41,6 +41,7 @@ const App: React.FC = () => {
   useEagerConnect()
   useFetchProfile()
   usePollCoreFarmData()
+  usePollPricesData()
 
   return (
     <Router history={history}>
@@ -50,7 +51,7 @@ const App: React.FC = () => {
         <SuspenseWithChunkError fallback={<PageLoader />}>
           <Switch>
             <Route path="/" exact>
-              <Home />
+              <Cowboy />
             </Route>
             <Route path="/farms">
               <Farms />

@@ -37,7 +37,7 @@ const Hero = () => {
             {t('Maximize yield by staking CowBaby for CowBoy')}
           </Heading>
           <Text bold fontSize="20px">
-            {t('When your COWB is staked into the CowBoy, you recieve COWBOY token in return. Your COWBOY token is continuously compounding, when you unstake you will receive all the originally deposited COWB and any additional from fees.')}
+            {t('When your COWB is staked into the CowBoy, you receive COWBOY token in return. Your COWBOY token is continuously compounding, when you unstake you will receive all the originally deposited COWB and additional rewards.')}
           </Text>
         </Container>
       </PageHeader>

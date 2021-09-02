@@ -7,7 +7,7 @@ import { useAppDispatch } from 'state'
 import { updateUserAllowance } from 'state/actions'
 import { approve } from 'utils/callHelpers'
 import { useTranslation } from 'contexts/Localization'
-import { useMasterchef, useCake, useSousChef, useLottery, useCakeVaultContract } from './useContract'
+import { useMasterchef, useCake, useSousChef, useLottery, useCakeVaultContract, useCowbContract } from './useContract'
 import useToast from './useToast'
 import useLastUpdated from './useLastUpdated'
 
@@ -143,4 +143,16 @@ export const useIfoApprove = (tokenContract: Contract, spenderAddress: string) =
   }, [account, spenderAddress, tokenContract])
 
   return onApprove
+}
+
+
+export const useCowbApprove = (spenderAddress: string) => {
+  const { account } = useWeb3React()
+  const cowbContract = useCowbContract()
+  const handleApprove = useCallback(async () => {
+    const tx = await cowbContract.methods.approve(spenderAddress, ethers.constants.MaxUint256).send({ from: account })
+    return tx
+  }, [account, spenderAddress, cowbContract])
+
+  return { onApprove: handleApprove }
 }

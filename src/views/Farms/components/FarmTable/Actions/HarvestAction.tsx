@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Button, Skeleton, Text } from 'cowswap-uikit'
+import { Button, Skeleton, Text, AutoRenewIcon } from 'cowswap-uikit'
 import BigNumber from 'bignumber.js'
 import { useWeb3React } from '@web3-react/core'
 import { FarmWithStakedValue } from 'views/Farms/components/FarmCard/FarmCard'
@@ -11,6 +11,7 @@ import { fetchFarmUserDataAsync } from 'state/farms'
 import { usePriceCakeBusd } from 'state/hooks'
 import { useHarvest } from 'hooks/useHarvest'
 import { useTranslation } from 'contexts/Localization'
+import useToast from 'hooks/useToast'
 
 import { ActionContainer, ActionTitles, ActionContent, Earned } from './styles'
 
@@ -37,6 +38,22 @@ const HarvestAction: React.FunctionComponent<HarvestActionProps> = ({ pid, userD
   const { t } = useTranslation()
   const dispatch = useAppDispatch()
   const { account } = useWeb3React()
+  const { toastSuccess, toastError } = useToast()
+  const handleHarvest = async () => {
+    setPendingTx(true)
+    try {
+      await onReward()
+      dispatch(fetchFarmUserDataAsync({ account, pids: [pid] }))
+      toastSuccess(
+        `${t('Harvested')}!`,
+        t('Your %symbol% earnings have been sent to your wallet!', { symbol: 'COWB' }),
+      )
+      setPendingTx(false)
+    } catch (e) {
+      toastError(t('Canceled'), t('Please try again and confirm the transaction.'))
+      setPendingTx(false)
+    }
+  }
 
   return (
     <ActionContainer>
@@ -57,13 +74,8 @@ const HarvestAction: React.FunctionComponent<HarvestActionProps> = ({ pid, userD
         </div>
         <Button
           disabled={earnings.eq(0) || pendingTx || !userDataReady}
-          onClick={async () => {
-            setPendingTx(true)
-            await onReward()
-            dispatch(fetchFarmUserDataAsync({ account, pids: [pid] }))
-
-            setPendingTx(false)
-          }}
+          onClick={handleHarvest}
+          endIcon={pendingTx ? <AutoRenewIcon spin color="currentColor" /> : null}
           ml="4px"
         >
           {t('Harvest')}

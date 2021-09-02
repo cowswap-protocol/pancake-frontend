@@ -22,8 +22,10 @@ import {
   setBlock,
   fetchPotPublicDataAsync,
   fetchPotUserDataAsync,
+  fetchCowboyPublicDataAsync,
+  fetchCowboyUserDataAsync
 } from './actions'
-import { State, Farm, Pool, ProfileState, TeamsState, AchievementState, FarmsState, PotsState } from './types'
+import { State, Farm, Pool, ProfileState, TeamsState, AchievementState, FarmsState, PotsState, CowboyState } from './types'
 import { fetchProfile } from './profile'
 import { fetchTeam, fetchTeams } from './teams'
 import { fetchAchievements } from './achievements'
@@ -32,6 +34,8 @@ import { getCanClaim } from './predictions/helpers'
 import { transformPool } from './pools/helpers'
 import { fetchPoolsStakingLimitsAsync } from './pools'
 import { fetchFarmUserDataAsync, nonArchivedFarms } from './farms'
+import { fetchPricesAsync } from './prices'
+import { getTokenPricesFromLp } from './prices/helpers'
 
 export const usePollFarmsData = (includeArchive = false) => {
   const dispatch = useAppDispatch()
@@ -52,7 +56,7 @@ export const usePollFarmsData = (includeArchive = false) => {
 
 /**
  * Fetches the "core" farm data used globally
- * 251 = CAKE-BNB LP
+ * 2 = COW-BNB LP
  * 252 = BUSD-BNB LP
  */
 export const usePollCoreFarmData = () => {
@@ -60,7 +64,7 @@ export const usePollCoreFarmData = () => {
   const { fastRefresh } = useRefresh()
 
   useEffect(() => {
-    dispatch(fetchFarmsPublicDataAsync([251, 252]))
+    dispatch(fetchFarmsPublicDataAsync([0]))
   }, [dispatch, fastRefresh])
 }
 
@@ -496,10 +500,45 @@ export const usePollPotsData = () => {
   const { slowRefresh } = useRefresh()
 
   useEffect(() => {
-    const ids = potsConfig.map((pot) => pot.sousId)
+    dispatch(fetchPotPublicDataAsync())
+  }, [dispatch, slowRefresh])
+}
 
-    dispatch(fetchPotPublicDataAsync({ ids }))
+// cowboy
+export const useCowboy = (account): CowboyState => {
+  const { fastRefresh } = useRefresh()
+  const dispatch = useAppDispatch()
+  useEffect(() => {
+    if (account) {
+      dispatch(fetchCowboyUserDataAsync({account}))
+    }
+  }, [account, dispatch, fastRefresh])
+
+  const cowboy = useSelector((state: State) => state.cowboy)
+  return cowboy
+}
+
+export const usePollCowboyData = () => {
+  const dispatch = useAppDispatch()
+  const { slowRefresh } = useRefresh()
+
+  useEffect(() => {
+    dispatch(fetchCowboyPublicDataAsync())
+  }, [dispatch, slowRefresh])
+}
+
+export const usePollPricesData = () => {
+  const dispatch = useAppDispatch()
+  const { slowRefresh } = useRefresh()
+
+  useEffect(() => {
+    dispatch(fetchPricesAsync())
 
   }, [dispatch, slowRefresh])
+}
+
+export const useTokenPrices = () => {
+  const priceLps = useSelector((state: State) => state.prices.data)
+  return getTokenPricesFromLp(priceLps)
 }
 
