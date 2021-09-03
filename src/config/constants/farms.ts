@@ -14,13 +14,13 @@ const farms: FarmConfig[] = [
   },
   {
     pid: 1,
-    lpSymbol: 'COWB-USDT LP',
+    lpSymbol: 'COWB-BUSD LP',
     lpAddresses: {
       97: '0x2833271C321E126BECAc271b2BCF90d5b0660165',
-      56: '0x0e09fabb73bd3ade0a17ecc321fd13a19e81ce82',
+      56: '0xbE1470D3bf6255904fdd707a9f631429c2723395',
     },
     token: tokens.cowb,
-    quoteToken: tokens.usdt,
+    quoteToken: tokens.busd,
   },
 ]
 
