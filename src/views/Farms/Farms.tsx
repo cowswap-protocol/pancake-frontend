@@ -120,7 +120,6 @@ const Farms: React.FC = () => {
   const isInactive = pathname.includes('history')
   const isActive = !isInactive && !isArchived
 
-  console.log("currentBlock=", currentBlock)
   useEffect(() => {
     setIsFarming(currentBlock >= FARM_START_BLOCK && currentBlock <= FARM_END_BLOCK)
   }, [currentBlock])

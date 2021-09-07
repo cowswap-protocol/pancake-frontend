@@ -30,5 +30,5 @@ export const DEFAULT_TOKEN_DECIMAL = BIG_TEN.pow(18)
 export const DEFAULT_GAS_LIMIT = 200000
 export const DEFAULT_GAS_PRICE = 5
 export const DAYS_PER_YEAR = 365
-export const FARM_START_BLOCK = 11953983
-export const FARM_END_BLOCK = 32977983
+export const FARM_START_BLOCK = 10588511
+export const FARM_END_BLOCK = 31612511
