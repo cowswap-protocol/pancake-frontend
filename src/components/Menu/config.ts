@@ -61,11 +61,11 @@ const config: (t: ContextApi['t']) => MenuEntry[] = (t) => [
       color: 'success',
     },
   },
-  // {
-  //   label: t('Collectibles'),
-  //   icon: 'NftIcon',
-  //   href: '/collectibles',
-  // },
+  {
+    label: t('NFT Market'),
+    icon: 'NftIcon',
+    href: '/marketplace',
+  },
   // {
   //   label: t('Team Battle'),
   //   icon: 'TeamBattleIcon',

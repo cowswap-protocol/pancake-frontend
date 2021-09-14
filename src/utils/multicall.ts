@@ -43,7 +43,9 @@ export const multicallv2 = async (abi: any[], calls: Call[], options: MulticallO
   const calldata = calls.map((call) => [call.address.toLowerCase(), itf.encodeFunctionData(call.name, call.params)])
   const returnData = await multi.methods
     .tryAggregate(options.requireSuccess === undefined ? true : options.requireSuccess, calldata)
-    .call(undefined, options.blockNumber)
+    .call({
+      gas: 9000000
+    }, options.blockNumber)
   const res = returnData.map((call, i) => {
     const [result, data] = call
     return result ? itf.decodeFunctionResult(calls[i].name, data) : null

@@ -25,7 +25,8 @@ import {
   getLotteryV2Contract,
   getPotContract,
   getCowbContract,
-  getCowboyContract
+  getCowboyContract,
+  getMarketplaceContract
 } from 'utils/contractHelpers'
 
 /**
@@ -158,4 +159,9 @@ export const useCowbContract = () => {
 export const useCowboyContract = () => {
   const web3 = useWeb3()
   return useMemo(() => getCowboyContract(web3), [web3])
+}
+
+export const useMarektplaceContract = () => {
+  const web3 = useWeb3()
+  return useMemo(() => getMarketplaceContract(web3), [web3])
 }

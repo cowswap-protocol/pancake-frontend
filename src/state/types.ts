@@ -170,6 +170,62 @@ export interface CollectiblesState {
   }
 }
 
+// Marketplace
+
+export interface NftOrder {
+  id: string
+  nftAddr: string
+  nftId: string
+  price: string
+  createdAt: number
+  owner: string
+  tokenURI: string
+}
+
+export interface NftItem {
+  id: string
+  address: string
+  tokenURI?: string
+  owner?: string
+  metadata?: any,
+  listed?: boolean
+}
+
+export interface NftInfo {
+  address: string
+  name: string
+  symbol: string
+}
+
+export interface UserNftSearch {
+  isLoading: boolean
+  error?: string
+  nft: NftInfo
+  items: NftItem[]
+  itemsTotalLength: number
+  itemsCurrentLength: number
+}
+
+export interface MarketplaceState {
+  isLoading: boolean
+  orders: {
+    [id: string]: NftOrder
+  }
+  userOrders: {
+    [id: string] : NftOrder
+  }
+  userSearch?: {
+    isLoading: boolean
+    error?: string
+    address: string
+    name: string
+    symbol: string
+    items: NftItem[]
+    itemsTotalLength: number
+    itemsCurrentLength: number
+  }
+}
+
 // Predictions
 
 export enum BetPosition {
@@ -313,6 +369,7 @@ export interface State {
   pots: PotsState
   prices: PricesState
   cowboy: CowboyState
+  marketplace: MarketplaceState
 }
 
 

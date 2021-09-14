@@ -66,5 +66,9 @@ export default {
   chainlinkOracle: {
     56: '0x0567F2323251f0Aab15c8dFb1967E4e8A7D42aeE',
     97: '',
+  },
+  marketplace: {
+    56: '0xf0bF6fAD5e8FE2C6C2a272Cb18b0fdca9B9c23ea',
+    97: '0xF6bC3F0dB52d1cB86E093E854532C450B68Bd5E0'
   }
 }

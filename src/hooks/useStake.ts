@@ -60,4 +60,5 @@ export const useCowboyStake = () => {
   return { onStake: handleStake }
 }
 
+
 export default useStake

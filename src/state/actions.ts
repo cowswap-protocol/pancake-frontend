@@ -21,3 +21,10 @@ export { setBlock } from './block'
 
 export { fetchPricesAsync } from './prices'
 export { fetchCowboyPublicDataAsync, fetchCowboyUserDataAsync } from './cowboy'
+export { 
+  fetchMarketplaceOrdersAsync, 
+  fetchNftOrderAsync, 
+  fetchUserOrdersAsync, 
+  fetchUserNftsAsync,
+  fetchTokenURIAsync 
+} from './marketplace'

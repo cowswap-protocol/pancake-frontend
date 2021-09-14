@@ -23,7 +23,13 @@ const Pots = lazy(() => import('./views/Pots'))
 const Cowboy = lazy(() => import('./views/Cowboy'))
 // const Ifos = lazy(() => import('./views/Ifos'))
 const NotFound = lazy(() => import('./views/NotFound'))
-// const Collectibles = lazy(() => import('./views/Collectibles'))
+const Collectibles = lazy(() => import('./views/Collectibles'))
+const Marketplace = lazy(() => import('./views/Marketplace'))
+const NftOrder = lazy(() => import('./views/Marketplace/Order'))
+const CreateNftOrder = lazy(() => import('./views/Marketplace/Create'))
+const MyNftOrders = lazy(() => import('./views/Marketplace/MyOrders'))
+const MyNfts = lazy(() => import('./views/Marketplace/MyNfts'))
+const Sell = lazy(() => import('./views/Marketplace/Sell'))
 // const Teams = lazy(() => import('./views/Teams'))
 // const Team = lazy(() => import('./views/Teams/Team'))
 // const Profile = lazy(() => import('./views/Profile'))
@@ -64,6 +70,25 @@ const App: React.FC = () => {
             <Route path="/cowboy">
               <Cowboy />
             </Route>
+
+            <Route path="/marketplace" exact>
+              <Marketplace />
+            </Route>
+
+            <Route path="/marketplace/order/:id" >
+              <NftOrder />
+            </Route>
+
+            <Route path="/marketplace/create" exact >
+              <Sell />
+            </Route>
+            <Route path="/marketplace/my-orders" >
+              <MyNftOrders />
+            </Route>
+            <Route path="/marketplace/my-nfts" >
+              <MyNfts />
+            </Route>
+
             {/* 404 */}
             <Route component={NotFound} />
           </Switch>

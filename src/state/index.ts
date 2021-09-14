@@ -11,6 +11,7 @@ import collectiblesReducer from './collectibles'
 import potReducer from './pots'
 import priceReducer from './prices'
 import cowboyReducer from './cowboy'
+import marketplaceReducer from './marketplace'
 
 const store = configureStore({
   devTools: process.env.NODE_ENV !== 'production',
@@ -26,6 +27,7 @@ const store = configureStore({
     pots: potReducer,
     prices: priceReducer,
     cowboy: cowboyReducer,
+    marketplace: marketplaceReducer,
   },
 })
 

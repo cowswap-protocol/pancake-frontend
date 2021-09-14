@@ -1,5 +1,6 @@
 import { useEffect, useMemo } from 'react'
 import BigNumber from 'bignumber.js'
+import { isAddress } from 'web3-utils'
 import { useWeb3React } from '@web3-react/core'
 import { useSelector } from 'react-redux'
 import { useAppDispatch } from 'state'
@@ -23,9 +24,20 @@ import {
   fetchPotPublicDataAsync,
   fetchPotUserDataAsync,
   fetchCowboyPublicDataAsync,
-  fetchCowboyUserDataAsync
+  fetchCowboyUserDataAsync,
+  fetchMarketplaceOrdersAsync,
+  fetchNftOrderAsync,
+  fetchUserOrdersAsync,
+  fetchUserNftsAsync,
+  fetchTokenURIAsync
 } from './actions'
-import { State, Farm, Pool, ProfileState, TeamsState, AchievementState, FarmsState, PotsState, CowboyState } from './types'
+import { 
+  State, 
+  Farm, Pool, 
+  ProfileState, TeamsState, AchievementState, FarmsState, 
+  PotsState, CowboyState, MarketplaceState, 
+  NftOrder, UserNftSearch, NftItem
+} from './types'
 import { fetchProfile } from './profile'
 import { fetchTeam, fetchTeams } from './teams'
 import { fetchAchievements } from './achievements'
@@ -542,3 +554,78 @@ export const useTokenPrices = () => {
   return getTokenPricesFromLp(priceLps)
 }
 
+
+// marketplace
+export const useMarketplace = (): MarketplaceState => {
+  const { fastRefresh } = useRefresh()
+  const dispatch = useAppDispatch()
+  useEffect(() => {
+    dispatch(fetchMarketplaceOrdersAsync())
+  }, [dispatch, fastRefresh])
+
+  const marketplace = useSelector((state: State) => state.marketplace)
+  return marketplace
+}
+
+// marketplace
+export const useUserOrders = (): MarketplaceState => {
+  const { fastRefresh } = useRefresh()
+  const dispatch = useAppDispatch()
+  const { account } = useWeb3React()
+  useEffect(() => {
+    dispatch(fetchUserOrdersAsync(account))
+  }, [dispatch, fastRefresh, account])
+
+  const marketplace = useSelector((state: State) => state.marketplace)
+  return marketplace
+}
+
+export const useUserSearch = (address: string, start: number) => {
+  // const { fastRefresh } = useRefresh()
+  const dispatch = useAppDispatch()
+  const { account } = useWeb3React()
+  useEffect(() => {
+    if(address && account && isAddress(address)) {
+      dispatch(fetchUserNftsAsync({address, account, start}))
+    }
+  }, [dispatch, account, address, start])
+
+  const marketplace = useSelector((state: State) => state.marketplace)
+  return marketplace
+}
+
+export const useFetchNftMeta = (address: string, id: string, tokenURI: string) => {
+  const dispatch = useAppDispatch()
+  useEffect(() => {
+    if(address && id && tokenURI) {
+      dispatch(fetchTokenURIAsync({address, id, tokenURI}))
+    }
+  }, [dispatch, address, id, tokenURI])
+}
+
+export const useGetNftItem = (address: string, id: string) => {
+  const item: NftItem = useSelector((state: State) => state.marketplace.userSearch.items.find(i => i.id === id && i.address === address))
+  return item
+}
+
+export const useNftOrder = (id: string) => {
+  const order: NftOrder = useSelector((state: State) => state.marketplace.orders[id])
+  const dispatch = useAppDispatch()
+
+  useEffect(() => {
+    dispatch(fetchNftOrderAsync(id))
+  }, [id, dispatch])
+
+  return order
+}
+
+export const useNft = (address: string, id: string) => {
+  const order: NftOrder = useSelector((state: State) => state.marketplace.orders[id])
+  const dispatch = useAppDispatch()
+
+  useEffect(() => {
+    dispatch(fetchNftOrderAsync(id))
+  }, [id, dispatch])
+
+  return order
+}

@@ -1,7 +1,10 @@
+import { Base64 } from 'js-base64';
 import Nfts, { IPFS_GATEWAY, nftSources } from 'config/constants/nfts'
 import { Nft, NftType } from 'config/constants/types'
+import erc721Abi from 'config/abi/erc721.json'
 import { getAddress } from './addressHelpers'
 import { getErc721Contract } from './contractHelpers'
+import multicall from './multicall'
 
 /**
  * Gets the identifier key based on the nft address
@@ -37,14 +40,84 @@ export const getTokenUriData = async (nftAddress: string, tokenId: number) => {
     const tokenUri = await contract.methods.tokenURI(tokenId).call()
     const uriDataResponse = await fetch(getTokenUrl(tokenUri))
 
+    const uriData = await uriDataResponse.json()
+    uriData.image = getTokenUrl(uriData.image)
+    return uriData
+  } catch (error) {
+    console.error('getTokenUriData', error)
+    return null
+  }
+}
+
+export const fetchNft = async (nftAddress: string, tokenId: number) => {
+  try {
+    if(!nftAddress || !tokenId) {
+      return null
+    }
+    const calls = [
+      {
+        address: nftAddress,
+        name: 'tokenURI',
+        params: [ tokenId.toString() ]
+      },
+      {
+        address: nftAddress,
+        name: 'ownerOf',
+        params: [ tokenId.toString() ]
+      }
+    ]
+    const [ tokenUri, owner ] = await multicall(erc721Abi, calls)
+
+    const uriDataResponse = await fetch(getTokenUrl(tokenUri[0]))
+
     if (!uriDataResponse.ok) {
       return null
     }
 
-    const uriData = await uriDataResponse.json()
-    return uriData
+    if (!uriDataResponse.ok) {
+      return null
+    }
+
+    const uriMeta = await uriDataResponse.json()
+    uriMeta.image = getTokenUrl(uriMeta.image)
+
+    const tokenInfo = {
+      uriMeta,
+      owner: owner[0],
+      nftAddress,
+      tokenId
+    }
+    return tokenInfo
   } catch (error) {
-    console.error('getTokenUriData', error)
+    console.error('fetchNft', error)
+    return null
+  }
+}
+
+export const fetchTokenUriData = async (uri: string) => {
+  if(uri.startsWith('data:application/json;base64,')) {
+    const meta = Base64.decode(uri.slice(29))
+    return JSON.parse(meta)
+  }
+  try {
+    const uriDataResponse = await fetch(getTokenUrl(uri))
+    if (!uriDataResponse.ok) {
+      return null
+    }
+    const type = uriDataResponse.headers.get('Content-Type')
+    let uriData = {
+      image: null
+    }
+    if(type.startsWith("image/")) {
+      uriData.image = getTokenUrl(uri)
+    } else if(type.startsWith("application/json")) {
+      const jsonData = await uriDataResponse.json()
+      uriData = { ...jsonData }
+      uriData.image = getTokenUrl(uriData.image)
+    }
+    return uriData
+  } catch(error) {
+    console.error('fetchTokenUriData', error)
     return null
   }
 }

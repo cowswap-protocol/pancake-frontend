@@ -70,3 +70,6 @@ export const getCowbAddress = () => {
 export const getCowboyAddress = () => {
   return getAddress(cowboyConfig.address)
 }
+export const getMarketplaceAddress = () => {
+  return getAddress(addresses.marketplace)
+}

@@ -6,10 +6,12 @@ import BigNumber from 'bignumber.js'
 import { useAppDispatch } from 'state'
 import { updateUserAllowance } from 'state/actions'
 import { approve } from 'utils/callHelpers'
+import { getErc721Contract } from 'utils/contractHelpers'
 import { useTranslation } from 'contexts/Localization'
-import { useMasterchef, useCake, useSousChef, useLottery, useCakeVaultContract, useCowbContract } from './useContract'
+import { useMasterchef, useCake, useSousChef, useLottery, useCakeVaultContract, useCowbContract, useERC721 } from './useContract'
 import useToast from './useToast'
 import useLastUpdated from './useLastUpdated'
+
 
 // Approve a Farm
 export const useApprove = (lpContract: Contract) => {
@@ -153,6 +155,28 @@ export const useCowbApprove = (spenderAddress: string) => {
     const tx = await cowbContract.methods.approve(spenderAddress, ethers.constants.MaxUint256).send({ from: account })
     return tx
   }, [account, spenderAddress, cowbContract])
+
+  return { onApprove: handleApprove }
+}
+
+export const useNftApprove = (nftAddress: string) => {
+  const { account } = useWeb3React()
+  const erc721Contract = useERC721(nftAddress)
+  const handleApprove = useCallback(async (spenderAddress: string, tokenId: number) => {
+    const tx = await erc721Contract.methods.approve(spenderAddress, tokenId).send({ from: account })
+    return tx
+  }, [account, erc721Contract])
+
+  return { onApprove: handleApprove }
+}
+
+export const useNftApproveAll = (nftAddress: string) => {
+  const { account } = useWeb3React()
+  const erc721Contract = useERC721(nftAddress)
+  const handleApprove = useCallback(async (spenderAddress: string) => {
+    const tx = await erc721Contract.methods.setApprovalForAll(spenderAddress, true).send({ from: account })
+    return tx
+  }, [account, erc721Contract])
 
   return { onApprove: handleApprove }
 }
