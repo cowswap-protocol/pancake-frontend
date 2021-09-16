@@ -24,7 +24,7 @@ const Image = styled.img`
 
   ${({ theme }) => theme.mediaQueries.md} {
     width: 300px;
-    height: 300px;
+    height: auto;
   }
 `
 const CardContent = styled.div`
@@ -90,6 +90,15 @@ const ListModal: React.FC<ListModalProps> = ({ onDismiss, item }) => {
     setListed(freshItem.listed)
   }, [ freshItem, setListed ])
 
+  const attributes =  useMemo(() => {
+    if(item.metadata && item.metadata.attributes) {
+      return Object.keys(item.metadata.attributes).map(k => {
+        return { key: k, value: item.metadata.attributes[k] }  
+      })
+    }
+    return []
+  }, [item] )
+
 
   const approved = useErc721Approved(item.address, getMarketplaceAddress(), parseInt(item.id))
   const { toastSuccess, toastError } = useToast()
@@ -122,6 +131,7 @@ const ListModal: React.FC<ListModalProps> = ({ onDismiss, item }) => {
     setPendingTx(true)
     try {
       await onApprove(getMarketplaceAddress())
+      await handlePlaceClick()
       setHasApproved(true)
       toastSuccess(
         `${t('Approved')}!`,
@@ -129,7 +139,6 @@ const ListModal: React.FC<ListModalProps> = ({ onDismiss, item }) => {
       )
       setPendingTx(false)
 
-      await handlePlaceClick()
     } catch (e) {
       toastError(t('Canceled'), t('Please try again and confirm the transaction.'))
       setPendingTx(false)
@@ -145,8 +154,8 @@ const ListModal: React.FC<ListModalProps> = ({ onDismiss, item }) => {
           <Image src={ item.metadata?.image }/>
           <Text mt="5px">
             {
-              item.metadata && item.metadata?.attributes?.map((attr) => {
-                return <Tag variant="textSubtle" key={`${attr.trait_type}_${attr.value}`}>{attr.trait_type}: { attr.value }</Tag>
+              attributes.map((attr) => {
+                return <Tag variant="textSubtle" key={`${attr.key}_${attr.value}`}>{attr.key}: { attr.value }</Tag>
               })
             }
           </Text>

@@ -118,6 +118,15 @@ const OrderDetail: React.FC<OrderCardProps> = ({ order }) => {
   const { onBuy } = useBuy()
   const { onChangePrice } = useChangePrice()
 
+  const attributes =  useMemo(() => {
+    if(nftMeta && nftMeta.attributes) {
+      return Object.keys(nftMeta.attributes).map(k => {
+        return { key: k, value: nftMeta.attributes[k] }  
+      })
+    }
+    return []
+  }, [nftMeta] )
+
 
   const handleCancelClick = async () => {
     setPendingTx(true)
@@ -181,11 +190,11 @@ const OrderDetail: React.FC<OrderCardProps> = ({ order }) => {
             }
 
             {
-              nftMeta && nftMeta.attributes ? 
+              attributes ?  
               <NftProperties>
               {
-                nftMeta.attributes.map((attr) => {
-                  return <Tag variant="textSubtle" key={`${attr.trait_type}_${attr.value}`}>{attr.trait_type}: { attr.value }</Tag>
+                attributes.map((attr) => {
+                  return <Tag variant="textSubtle" key={`${attr.key}_${attr.value}`}>{attr.key}: { attr.value }</Tag>
                 })
               }
               </NftProperties>

@@ -42,6 +42,7 @@ const ImageWrapper = styled.div`
   max-width: 100%;
   overflow: hidden;
   position: relative;
+  min-height: 200px;
   ${({ theme }) => theme.mediaQueries.sm} {
     width: 100%;
     height: auto;

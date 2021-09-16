@@ -25,7 +25,7 @@ const Hero: React.FC<HeroProps> = ( { activeIndex }) => {
     <StyledHero>
       <Heading as="h1" scale="xxl" color="secondary" mb="20px">
         {t('Open NFT Market')}
-        <Text>A simple and open NFT marketplace for anyone</Text>
+        <Text>A simple open and free NFT marketplace for anyone</Text>
       </Heading>
       <ButtonMenu activeIndex={activeIndex} >
         <ButtonMenuItem as={Link} to="/marketplace">
